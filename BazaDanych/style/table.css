@@ -1,0 +1,18 @@
+table, tr, th, td{
+    border: solid 1px dimgrey;
+    text-align: center;
+    padding: 10px;
+    border-collapse: collapse;
+
+
+}
+
+table:hover, tr:hover, th:hover, td:hover{
+    border: solid 1px purple;
+    text-align: center;
+    padding: 10px;
+  
+
+
+}
+
