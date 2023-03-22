@@ -7,7 +7,7 @@ table, tr, th, td{
 }
 
 table:hover, tr:hover, th:hover, td:hover{
-    border: solid 7px purple;
+    border: solid 7px green;
     text-align: center;
     padding: 10px;
   
