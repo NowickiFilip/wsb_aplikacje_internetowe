@@ -2,4 +2,5 @@
 $conn = new mysqli("localhost","root", "", "bazacwiczenia");
 //echo "db";
 
-echo $conn-> connect_errno;
+//echo $conn-> connect_errno;
+
