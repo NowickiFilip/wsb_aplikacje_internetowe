@@ -118,7 +118,7 @@ while($city = $result->fetch_assoc()){
     </form>
 ADDUSERFORM;
 }else{
-   echo '<a href="./3_db_table.php?addUserForm=1">Dodawanie użytkownika</a>';
+   echo '<a href="./4_db_table.php?addUserForm=1">Dodawanie użytkownika</a>';
 }
 
  if(isset($_GET["updateUserId"])){
