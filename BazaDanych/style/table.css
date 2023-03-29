@@ -6,12 +6,9 @@ table, tr, th, td{
 
 }
 
-table:hover, tr:hover, th:hover, td:hover{
-    border: solid 7px purple;
-    text-align: center;
-    padding: 10px;
+
   
 
 
-}
+
 
