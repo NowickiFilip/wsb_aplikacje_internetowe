@@ -1,6 +1,6 @@
 <?php
 
-//print_r($_POST);
+print_r($_POST);
 
 foreach ($_POST as $key => $value){
 
@@ -13,6 +13,16 @@ foreach ($_POST as $key => $value){
         echo "<script>history.back();</script>";
         exit();
     }
+}
+if(isset($_POST["term"])){
+    $_SESSION["error"] = "Zatweirdz regulamin";
+    echo "<script>history.back();</script>";
+    $error++;
+}
+if($error =! 0){
+
+    echo "<script>history.back();</script>";
+    exit();
 }
 
 require_once "./connect.php";
@@ -28,6 +38,6 @@ if($conn->affected_rows == 1){
 
 }
 
-header(header:"location: ../BazaDanych/3_db_table.php")
+//header(header:"location: ../BazaDanych/3_db_table.php")
 
 ?>

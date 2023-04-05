@@ -114,6 +114,7 @@ while($city = $result->fetch_assoc()){
     echo <<< ADDUSERFORM
     
     <input type="date" name="DataUrodzenia">Podaj date urodzenia<br><br>
+    <input type ="checkbox" name="tera" checked>Regulamin<br><br>
     <input type="submit" value="Dodaj Użytkownika"><br><br>
     </form>
 ADDUSERFORM;
@@ -122,10 +123,40 @@ ADDUSERFORM;
 }
 
  if(isset($_GET["updateUserId"])){
-    echo <<< UPDATEUSERID
-    <h4>Aktualizacja użytkownika</h4>
-UPDATEUSERID;
+    $sql = "SELECT * from users where id = $_GET[updateUserId]";
+    $result = $conn->query($sql);
+    $updateUser = $result->fetch_assoc();
+    $_SESSION["updateUserId"] = $_GET["updateUserId"];
+    
+    echo <<< UPDATEUSERFORM
+    <hr><h4>Aktualizacja</h4>
+    <form action="../skrypt/update_user.php" method="post">
+    <input type="text" name="firstName" placeholder="Podaj imie" value ="$updateUser[firstName]"autofocus><br><br>
+    <input type="text" name="lastName" placeholder="Podaj nazwisko" value ="$updateUser[lastName]"><br><br>
+    <select name="city_id">
+UPDATEUSERFORM;
+    $sql = "SELECT * from cities";
+    $result = $conn->query($sql);
+    while($city = $result->fetch_assoc()){
+    
+    if($updateUser["city_id"] == $city["id"]){
+
+        echo "<option value=\"$city[id]\" selected>$city[city]</option>";
+    }else{
+
+        echo "<option value=\"$city[id]\">$city[city]</option>";
+    }
+
+}
+    echo <<< UPDATEUSERFORM
+    
+    <input type="date" name="DataUrodzenia" value ="$updateUser[DataUrodzenia]">Podaj date urodzenia<br><br>
+    <input type="submit" value="Aktualizuj użytkownika"><br><br>
+   
+    </form>
+UPDATEUSERFORM;
  }
+ $conn->close();
 ?>
 
 
