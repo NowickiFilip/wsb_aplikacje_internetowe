@@ -123,7 +123,19 @@ unset ($_SESSION['error']);
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="number" class="form-control" placeholder="Podaj id mista" name="city_id">
+        <select class="custom-select" name="city_id">
+          <?php
+          require_once "../skrypty/conect.php";
+          $sql = "SELECT * FROM `cities`";
+          $result = $conn->query($sql);
+          while ($city = $result->fetch_assoc()){
+            echo "<option value='$city[id]'>$city[city]</option>";
+          }
+          
+          
+          ?>
+          </select>
+        
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-city"></span>
