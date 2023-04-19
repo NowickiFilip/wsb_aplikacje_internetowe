@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +20,47 @@
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition register-page">
+
+
 <div class="register-box">
+  <?php
+if(isset($_SESSION['error'])){
+  echo <<< ERROR
+
+
+  <div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h5><i class="icon fas fa-ban"></i> ERROR</h5>
+  $_SESSION[error]
+ 
+  </div>
+
+
+ERROR;
+unset ($_SESSION['success']);
+}
+
+if(isset($_SESSION['success'])){
+  echo <<< ERROR
+
+
+  <div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+  <h5><i class="icon fas fa-ban"></i> SUCCESSS</h5>
+  $_SESSION[success]
+ 
+  </div>
+
+
+ERROR;
+unset ($_SESSION['error']);
+
+}
+  
+  ?>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Kox</b>Rejestracja</a>
+      <a href="../../index2.html" class="h1"><b>MegaGigaKox</b><br>Rejestracja</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Rejestracja uzytkownika</p>
