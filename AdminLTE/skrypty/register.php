@@ -3,7 +3,6 @@
 //print_r($_POST);
 //echo "</pre>";
 
-
 session_start();
 
 
@@ -24,6 +23,13 @@ if (!isset($_POST['terms'])){
         exit();
     }
 
+    if (!isset($_POST['gender'])){
+        $error = 1;
+        $_SESSION["error"] = "Zaznacz płeć";
+            echo "<script>history.back();</script>";
+            exit();
+        }
+    
 if ($_POST['pass1'] != $_POST['pass2']){
     $error = 1;
     $_SESSION["error"] = "Hasla sa rozne";
@@ -46,24 +52,48 @@ if ($error != 0){
         exit(); 
     }
 
-
 require_once "./conect.php";
 
-$stmt = $conn->prepare("INSERT INTO `users` (`email`, `city_id`, `firstName`, `lastName`, `DataUrodzenia`, `password`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, current_timestamp());");
-
-$pass = password_hash($_POST["pass1"],PASSWORD_ARGON2ID);
-$stmt->bind_param('sissss', $_POST["email1"], $_POST["city_id"], $_POST["firstName"], $_POST["lastName"], $_POST["DataUrodzenia"], $pass);
-
+$sql = "SELECT * FROM `users` where email = ?";
+$stmt = $conn->prepare("SELECT * FROM `users` where email = ?");
+$stmt->bind_param('s', $_POST["email1"]);
 $stmt->execute();
+$result = $stmt->get_result();
 
+if($result->num_rows == 1){
 
-if($stmt->affected_rows == 1){
-    $_SESSION["success"] = "Dodano użytkownika $_POST[firstName] $_POST[lansName]";
-
-}else{
-    $_SESSION["error"] = "Nie udało się dodać użytkownika";
-
+    $_SESSION["error"] = "Adres: $_POST[email1] jest zajety";
+    echo "<script>history.back();</script>";
+    exit();
 }
 
 
-header( header: "location: ../Pages/register.php");
+
+
+if($stmt->affected_rows == 1){
+    $_SESSION["success"] = "Dodano uzytkownika $_POST[firstName] $_POST[lastName]";
+}else{
+    $_SESSION["error"] = "Email juz istnieje";
+}
+
+
+
+
+$stmt = $conn->prepare("INSERT INTO `users` (`email`, `city_id`, `firstName`, `lastName`, `DataUrodzenia`,`gender`,`avatar`, `password`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp());");
+
+$pass = password_hash($_POST["pass1"], PASSWORD_ARGON2ID);
+
+$avatar = ($_POST["gender"] = 'm') = ('./jpg.man.png' ? './jpg.woman.png')
+
+$stmt->bind_param('sissssss', $_POST["email1"], $_POST["city_id"], $_POST["firstName"], $_POST["lastName"], $_POST["DataUrodzenia"],$_POST["gender"],$avatar, $pass);
+
+
+$stmt->execute();
+
+if($stmt->affected_rows == 1){
+    $_SESSION["success"] = "Dodano uzytkownika $_POST[firstName] $_POST[lastName]";
+}else{
+    $_SESSION["error"] = "Nie udalo sie dodac uzytkownika";
+}
+
+//header("location:../Pages/register.php"); 
