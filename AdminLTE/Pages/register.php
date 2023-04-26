@@ -60,7 +60,7 @@ unset ($_SESSION['error']);
   ?>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>MegaGigaKox</b><br>Rejestracja</a>
+      <a href="../../index2.html" class="h1"><b>UltraMegaGiga<br>Koks</b><br>Rejestracja</a>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Rejestracja uzytkownika</p>

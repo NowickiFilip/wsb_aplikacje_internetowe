@@ -51,9 +51,8 @@ require_once "./conect.php";
 
 $stmt = $conn->prepare("INSERT INTO `users` (`email`, `city_id`, `firstName`, `lastName`, `DataUrodzenia`, `password`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, current_timestamp());");
 
-$pass = password_hash('$_POST["pass1"]',PASSWORD_ARGON2ID);
-
-$stmt->bind_param('sissss', $_POST["email1"], $_POST["city_id"], $_POST["firstName"], $_POST["lastName"], $_POST["DataUrodzenia"], $_POST["pass1"]);
+$pass = password_hash($_POST["pass1"],PASSWORD_ARGON2ID);
+$stmt->bind_param('sissss', $_POST["email1"], $_POST["city_id"], $_POST["firstName"], $_POST["lastName"], $_POST["DataUrodzenia"], $pass);
 
 $stmt->execute();
 
