@@ -142,6 +142,22 @@ unset ($_SESSION['error']);
             </div>
           </div>
         </div>
+            <div class= "input-group mb-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" value="w" checked>
+                <label class="form-checked-label">Kobieta</label>
+              </div>
+            </div>
+
+            <div class="input-group mb-2">
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="gender" value="m" checked>
+                <label class="form-checked-label">Mężczyzna</label>
+            </div>
+          </div>
+
+
+
         <div class="row">
           <div class="col-7">
             <div class="icheck-primary">

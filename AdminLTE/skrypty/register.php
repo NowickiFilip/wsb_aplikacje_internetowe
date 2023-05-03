@@ -16,33 +16,36 @@ foreach ($_POST as $key => $value){
 
 $error = 0;
 
+// regulamin
 if (!isset($_POST['terms'])){
     $error = 1;
     $_SESSION["error"] = "Zaznacz przycisk regulaminu!";
-        echo "<script>history.back();</script>";
-        exit();
-    }
+} echo "<script>history.back();</script>";
+exit();
 
+
+// płeć
     if (!isset($_POST['gender'])){
         $error = 1;
         $_SESSION["error"] = "Zaznacz płeć";
-            echo "<script>history.back();</script>";
-            exit();
+            
         }
-    
+
+//hasło
 if ($_POST['pass1'] != $_POST['pass2']){
     $error = 1;
     $_SESSION["error"] = "Hasla sa rozne";
-    echo "<script>history.back();</script>";
-    exit();
-}
+    
+} echo "<script>history.back();</script>";
+exit();
 
+//email
 if ($_POST['email1'] != $_POST['email2']){
     $error = 1;
     $_SESSION["error"] = "Adresy mail sa rozne";
-    echo "<script>history.back();</script>";
-    exit();
-}
+    
+} echo "<script>history.back();</script>";
+exit();
 
 //duplikacja adresu email
 
@@ -54,36 +57,32 @@ if ($error != 0){
 
 require_once "./conect.php";
 
-$sql = "SELECT * FROM `users` where email = ?";
+//$sql = "SELECT * FROM `users` where email = ?";
 $stmt = $conn->prepare("SELECT * FROM `users` where email = ?");
 $stmt->bind_param('s', $_POST["email1"]);
 $stmt->execute();
 $result = $stmt->get_result();
 
-if($result->num_rows == 1){
+if($result->num_rows != 0){
 
     $_SESSION["error"] = "Adres: $_POST[email1] jest zajety";
     echo "<script>history.back();</script>";
     exit();
 }
+if($result->num_rows == 1){
 
-
-
-
-if($stmt->affected_rows == 1){
-    $_SESSION["success"] = "Dodano uzytkownika $_POST[firstName] $_POST[lastName]";
+    $_SESSION["success"] = "Dodano użytkownika $_POST[firstName] $_POST[lastName]";
 }else{
-    $_SESSION["error"] = "Email juz istnieje";
+    $_SESSION["error"] = "email już istnieje";
+
 }
-
-
-
+   
 
 $stmt = $conn->prepare("INSERT INTO `users` (`email`, `city_id`, `firstName`, `lastName`, `DataUrodzenia`,`gender`,`avatar`, `password`, `created_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, current_timestamp());");
 
 $pass = password_hash($_POST["pass1"], PASSWORD_ARGON2ID);
 
-$avatar = ($_POST["gender"] = 'm') = ('./jpg.man.png' ? './jpg.woman.png')
+$avatar = ($_POST["gender"] = 'm') ? '1.png' : '2.jpg';
 
 $stmt->bind_param('sissssss', $_POST["email1"], $_POST["city_id"], $_POST["firstName"], $_POST["lastName"], $_POST["DataUrodzenia"],$_POST["gender"],$avatar, $pass);
 
@@ -96,4 +95,4 @@ if($stmt->affected_rows == 1){
     $_SESSION["error"] = "Nie udalo sie dodac uzytkownika";
 }
 
-//header("location:../Pages/register.php"); 
+header("location:../Pages/register.php"); 
