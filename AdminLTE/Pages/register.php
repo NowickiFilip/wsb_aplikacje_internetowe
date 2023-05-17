@@ -99,6 +99,22 @@ unset ($_SESSION['error']);
           </div>
         </div>
         <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Podaj dodatkowy email" name="additional_email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+            </div>
+          </div>
+            <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Powtórz dodatkowy email" name="additional_email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+            </div>
+          </div>
+        <div class="input-group mb-3">
           <input type="password" class="form-control" placeholder="Podaj Hasło" name="pass1">
           <div class="input-group-append">
             <div class="input-group-text">
